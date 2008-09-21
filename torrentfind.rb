@@ -4,12 +4,21 @@ require 'rubygems'
 require 'hpricot'
 require 'open-uri'
 
-search = $ARGV
+Search = ARGV.join ' '
 
 def search_the_pirate_bay
-  doc = Hpricot(open("http://thepiratebay.org/search/#{$ARGV.join}/0/99/0"))
+  doc = Hpricot(open("http://thepiratebay.org/search/#{Search}/0/99/0"))
+
+	results = (doc/"#searchResult")
+	(results/"tr//a").each do |result|
+		next unless result["href"] =~ /.*cat.*/
+
+		puts result
+	end
+end
+
+def search_mininova
 
 end
 
-print search_the_pirate_bay
-
+puts search_the_pirate_bay
