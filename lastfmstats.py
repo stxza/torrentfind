@@ -4,8 +4,9 @@ import urllib
 import urllib2
 import time
 import os
-from errorcodes import Lastfm_Api_Error
+
 import xmlparser
+
 #currently implemented in the set_method function:
 #user.getrecenttracks
 #this may be reimplemented as a class if it becomes too unwieldy
@@ -39,12 +40,7 @@ class Lastfm_Stats:
         values = self.encode_url_values()
         urllib.urlretrieve(url = self.base_url + values, filename = self.filename)
         
-        
-    def parse_data(self):
-        """Checks that data is correct, deletes otherwise and shows error"""
-        parser = xmlparser(self.filename)
-        parser.parse()
-        
+       
     def add_get_data(self, datadic):
         """Adds any extra get data that may be required"""
         self.get_values.update(datadic)
