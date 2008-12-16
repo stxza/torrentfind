@@ -23,8 +23,8 @@ def search_pirate_bay(album, num):
         req = urllib2.Request(search_string)
         handle = urllib2.urlopen(req)
         soup = BeautifulSoup(handle)
-        head = soup.contents[0]
-        print head.nextSibling.next
+        body = soup.table
+        print body.nextSibling
         
 def retrieve_xml_data(user, method, extra_data=None):
     lfm = lastfmstats.Lastfm_Stats()
