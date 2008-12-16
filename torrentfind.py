@@ -16,7 +16,8 @@ def search_pirate_bay(album, num):
     """
     
     for i in range(0, num):
-        search = '%20'.join(album[i])
+        search = album[i][1] + album[i][2]
+        search = string.replace(search, ' ', '%20')
         search_string = 'http://thepiratebay.org/search/%s/0/7/0' % search
         webbrowser.open(search_string)
 
@@ -60,6 +61,7 @@ def run():
             parser.run_iterator()
             albums = parser.collected
             #lets just get the top album for now
+            albums = ['1', 'Hash pipe', 'Weezer']
             search_pirate_bay(albums, 1)
     
 if __name__ == '__main__':
