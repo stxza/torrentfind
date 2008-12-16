@@ -6,7 +6,7 @@ import string
 import webbrowser
 import urllib
 import urllib2
-import BeautifulSoup
+from BeautifulSoup import BeautifulSoup
 
 def search_pirate_bay(album, num):
     """album is a list (of lists) containing
@@ -17,10 +17,12 @@ def search_pirate_bay(album, num):
     """
     
     for i in range(0, num):
-        search = album[i][1] + " " + album[i][2]
+        search = string.replace(album[i][1], ' ', '%20') + "%20" + album[i][2]
         search_string = 'http://thepiratebay.org/search/%s/0/7/0' % search
-        handle = urllib2.urlopen(search_string)
-        soup = BeautifulSoup.
+        print search_string
+        req = urllib2.Request(search_string)
+        handle = urllib2.urlopen(req)
+        soup = BeautifulSoup(handle)
         
 
 def retrieve_xml_data(user, method, extra_data=None):
@@ -62,9 +64,9 @@ def run():
             parser = xmlparser.XML_Parser(fname, ['name', 'album', 'name'], {'album' : 'rank'})
             parser.run_iterator()
             albums = parser.collected
-            #lets just get the top album for now
-            albums = [['1', 'Hash pipe', 'Weezer']]
             search_pirate_bay(albums, 1)
     
 if __name__ == '__main__':
-    run()
+    albums = [['1', 'Hash pipe', 'Weezer']]
+    search_pirate_bay(albums, 1)
+    #run()
